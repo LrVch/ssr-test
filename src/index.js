@@ -9,7 +9,13 @@ import App from './App';
 import configureStore from './store/configureStore';
 // import registerServiceWorker from './registerServiceWorker';
 
+const { REACT_APP_SERVER_RENDER: isServer } = process.env
+
+console.log(process.env)
+
 const store = configureStore(window.__REDUX_STATE__ || {});
+
+delete window.__REDUX_STATE__;
 
 const AppBundle = (
   <ReduxProvider store={store}>
@@ -19,12 +25,13 @@ const AppBundle = (
   </ReduxProvider>
 );
 
-ReactDOM.render(
-  AppBundle,
-  document.getElementById('root')
-);
-
-// window.onload = () => {
+if (!isServer) {
+  ReactDOM.render(
+    AppBundle,
+    document.getElementById('root')
+  );
+} else {
+  // window.onload = () => {
   Loadable.preloadReady().then(() => {
     console.log('preloaded loadable');
     ReactDOM.hydrate(
@@ -32,6 +39,9 @@ ReactDOM.render(
       document.getElementById('root')
     );
   });
-// };
+  // };
+}
+
+
 
 // registerServiceWorker();

@@ -1,6 +1,8 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const ReactLoadablePlugin =  require('react-loadable/webpack').ReactLoadablePlugin;
+const webpack = require('webpack');
+
+// console.log(process.env)
 
 module.exports = {
   entry: './server/index.js',
@@ -42,9 +44,14 @@ module.exports = {
       }
     ]
   },
-  // plugins: [
-  //   new ReactLoadablePlugin({
-  //     filename: './build/react-loadable.json',
-  //   })
-  // ],
+  plugins: [
+    // new webpack.DefinePlugin({
+    //   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    //   'process.env.REACT_APP_SERVER_RENDER': JSON.stringify(process.env.REACT_APP_SERVER_RENDER)
+    // }),
+    // new webpack.DefinePlugin({
+    //   NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+    //   REACT_APP_SERVER_RENDER: JSON.stringify(process.env.REACT_APP_SERVER_RENDER)
+    // })
+  ],
 };
